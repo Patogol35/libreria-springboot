@@ -9,7 +9,7 @@ Incluye operaciones con query params para realizar búsquedas personalizadas y s
 
 Java 17+
 
-Spring Boot 3.x
+Spring Boot
 
 Spring Web
 
