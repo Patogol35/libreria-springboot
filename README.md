@@ -3,6 +3,8 @@
 Proyecto desarrollado en Spring Boot que implementa un sistema CRUD para la gestión de libros en una librería.
 Incluye operaciones con query params para realizar búsquedas personalizadas y se conecta a una base de datos MySQL.
 
+---
+
 🚀 Tecnologías utilizadas
 
 Java 17+
@@ -17,8 +19,12 @@ MySQL
 
 Lombok (opcional)
 
+---
+
 📦 Instalación y ejecución
+
 1. Clonar el repositorio
+
 git clone https://github.com/tu-usuario/libreria-springboot.git
 cd libreria-springboot
 
@@ -45,6 +51,7 @@ El servidor quedará disponible en:
 
 http://localhost:8081
 
+
 📖 Endpoints disponibles
 CRUD de Libros
 
@@ -68,7 +75,10 @@ GET /api/libros/buscar/precio?precio=20 → Buscar libros con precio menor a 20
 
 GET /api/libros/buscar/stock?stock=10 → Buscar libros con stock mayor a 10
 
+---
+
 👨‍💻 Autor
 
 Jorge Patricio Santamaría Cherrez
+
 Máster en Ingeniería de Software y Sistemas Informáticos
