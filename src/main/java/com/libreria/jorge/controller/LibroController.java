@@ -1,11 +1,13 @@
 package com.libreria.jorge.controller;
 
+import com.libreria.jorge.dto.MensajeResponse;
 import com.libreria.jorge.model.Libro;
 import com.libreria.jorge.service.LibroService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/libros")
@@ -17,57 +19,98 @@ public class LibroController {
         this.libroService = libroService;
     }
 
-    // CRUD Básico
+    // Listar todos
     @GetMapping
-    public List<Libro> listarLibros() {
-        return libroService.listarTodos();
+    public ResponseEntity<?> listarLibros() {
+        List<Libro> libros = libroService.listarTodos();
+        if (libros.isEmpty()) {
+            return ResponseEntity.ok(new MensajeResponse("⚠️ No hay libros registrados"));
+        }
+        return ResponseEntity.ok(libros);
     }
 
+    // Buscar por ID
     @GetMapping("/{id}")
-    public ResponseEntity<Libro> obtenerLibro(@PathVariable Long id) {
-        return libroService.buscarPorId(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @PostMapping
-    public Libro crearLibro(@RequestBody Libro libro) {
-        return libroService.guardar(libro);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Libro> actualizarLibro(@PathVariable Long id, @RequestBody Libro libro) {
-        try {
-            return ResponseEntity.ok(libroService.actualizar(id, libro));
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<?> obtenerLibro(@PathVariable Long id) {
+        Optional<Libro> opt = libroService.buscarPorId(id);
+        if (opt.isPresent()) {
+            return ResponseEntity.ok(opt.get()); // Devuelve el libro si existe
+        } else {
+            return ResponseEntity.status(404)
+                    .body(new MensajeResponse("⚠️ Libro no encontrado"));
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarLibro(@PathVariable Long id) {
-        libroService.eliminar(id);
-        return ResponseEntity.noContent().build();
+    // Crear libro
+    @PostMapping
+    public ResponseEntity<?> crearLibro(@RequestBody Libro libro) {
+        libroService.guardar(libro);
+        return ResponseEntity.status(201)
+                .body(new MensajeResponse("✅ Libro creado correctamente"));
     }
 
+    // Actualizar libro
+    @PutMapping("/{id}")
+    public ResponseEntity<?> actualizarLibro(@PathVariable Long id, @RequestBody Libro libro) {
+        try {
+            libroService.actualizar(id, libro);
+            return ResponseEntity.ok(new MensajeResponse("✏️ Libro actualizado correctamente"));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404)
+                    .body(new MensajeResponse("⚠️ Libro no encontrado"));
+        }
+    }
+
+    // Eliminar libro
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> eliminarLibro(@PathVariable Long id) {
+        try {
+            libroService.eliminar(id);
+            return ResponseEntity.ok(new MensajeResponse("🗑️ Libro eliminado correctamente"));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404)
+                    .body(new MensajeResponse("⚠️ Libro no encontrado"));
+        }
+    }
+
+    // ========================
     // Endpoints con Query Params
+    // ========================
+
     @GetMapping("/buscar/autor")
-    public List<Libro> buscarPorAutor(@RequestParam String autor) {
-        return libroService.buscarPorAutor(autor);
+    public ResponseEntity<?> buscarPorAutor(@RequestParam String autor) {
+        List<Libro> libros = libroService.buscarPorAutor(autor);
+        if (libros.isEmpty()) {
+            return ResponseEntity.ok(new MensajeResponse("⚠️ No se encontraron libros del autor: " + autor));
+        }
+        return ResponseEntity.ok(libros);
     }
 
     @GetMapping("/buscar/genero")
-    public List<Libro> buscarPorGenero(@RequestParam String genero) {
-        return libroService.buscarPorGenero(genero);
+    public ResponseEntity<?> buscarPorGenero(@RequestParam String genero) {
+        List<Libro> libros = libroService.buscarPorGenero(genero);
+        if (libros.isEmpty()) {
+            return ResponseEntity.ok(new MensajeResponse("⚠️ No se encontraron libros del género: " + genero));
+        }
+        return ResponseEntity.ok(libros);
     }
 
     @GetMapping("/buscar/precio")
-    public List<Libro> buscarPorPrecioMenor(@RequestParam Double precio) {
-        return libroService.buscarPorPrecioMenor(precio);
+    public ResponseEntity<?> buscarPorPrecioMenor(@RequestParam Double precio) {
+        List<Libro> libros = libroService.buscarPorPrecioMenor(precio);
+        if (libros.isEmpty()) {
+            return ResponseEntity.ok(new MensajeResponse("⚠️ No se encontraron libros con precio menor a " + precio));
+        }
+        return ResponseEntity.ok(libros);
     }
 
     @GetMapping("/buscar/stock")
-    public List<Libro> buscarConStockMayor(@RequestParam Integer stock) {
-        return libroService.buscarConStockMayor(stock);
+    public ResponseEntity<?> buscarConStockMayor(@RequestParam Integer stock) {
+        List<Libro> libros = libroService.buscarConStockMayor(stock);
+        if (libros.isEmpty()) {
+            return ResponseEntity.ok(new MensajeResponse("⚠️ No se encontraron libros con stock mayor a " + stock));
+        }
+        return ResponseEntity.ok(libros);
     }
 }
+
