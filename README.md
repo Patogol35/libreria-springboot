@@ -5,33 +5,35 @@ Incluye operaciones con query params para realizar búsquedas personalizadas y s
 
 ---
 
-🚀 Tecnologías utilizadas
+⚙️ Tecnologías utilizadas
 
-Java 17+
+- Java 17+
 
-Spring Boot
+- Spring Boot
 
-Spring Web
+- Spring Web
 
-Spring Data JPA
+- Spring Data JPA
 
-MySQL
+- MySQL
 
-Lombok (opcional)
+- Lombok (opcional)
 
 ---
 
 📦 Instalación y ejecución
 
-1. Clonar el repositorio
+1. Clona el repositorio
 
 git clone https://github.com/tu-usuario/libreria-springboot.git
 
+2. Ingresa a la carpeta del proyecto
+
 cd libreria-springboot
 
-2. Configurar la base de datos MySQL
+3. Configura la base de datos MySQL
 
-Crear la base de datos en MySQL:
+- Crea la base de datos en MySQL:
 
 CREATE DATABASE libreria_db;
 
@@ -41,19 +43,19 @@ En el archivo src/main/resources/application.properties, configurar las credenci
 spring.datasource.username=tu_usuario
 spring.datasource.password=tu_password
 
-3. Ejecutar el proyecto
+4. Ejecutar el proyecto
 
 Desde la raíz del proyecto:
 
 mvn spring-boot:run
 
 
-El servidor quedará disponible en:
+5. El servidor quedará disponible en:
 
 http://localhost:8081
 
 
-📖 Endpoints disponibles
+🔗 Endpoints disponibles
 
 CRUD de Libros
 
