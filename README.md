@@ -25,30 +25,48 @@ Incluye operaciones con query params para realizar búsquedas personalizadas y s
 
 1. Clona el repositorio
 
+```bash
+
 git clone https://github.com/tu-usuario/libreria-springboot.git
+
+```
 
 2. Ingresa a la carpeta del proyecto
 
+```bash
+
 cd libreria-springboot
+
+```
 
 3. Configura la base de datos MySQL
 
 - Crea la base de datos en MySQL:
 
+```bash
+
 CREATE DATABASE libreria_db;
 
+```
 
-En el archivo src/main/resources/application.properties, configurar las credenciales de tu MySQL:
+En el archivo src/main/resources/application.properties, configurar las credenciales de tu MySQL: 
+
+```bash
 
 spring.datasource.username=tu_usuario
 spring.datasource.password=tu_password
 
+```
+
 4. Ejecutar el proyecto
 
-Desde la raíz del proyecto:
+Desde la raíz del proyecto: 
+
+```
 
 mvn spring-boot:run
 
+```
 
 5. El servidor quedará disponible en:
 
