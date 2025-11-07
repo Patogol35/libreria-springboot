@@ -89,7 +89,7 @@ DELETE /api/libros/{id} → Eliminar un libro
 
 Búsquedas con Query Params
 
-GET /api/libros/buscar/autor?autor=Gabriel → Buscar libros por autor
+GET /api/libros/buscar/autor?autor=Jorge → Buscar libros por autor
 
 GET /api/libros/buscar/genero?genero=Novela → Buscar libros por género
 
